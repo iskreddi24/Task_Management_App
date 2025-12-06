@@ -1,0 +1,416 @@
+/* =========================================================
+   BASE COLORS
+========================================================= */
+:root {
+  --dept-primary: #2563eb;
+  --dept-primary-dark: #1e40af;
+  --dept-danger: #dc2626;
+  --dept-bg: #f8fafc;
+  --dept-card: #ffffff;
+  --dept-border: #e5e7eb;
+  --dept-text: #111827;
+  --dept-muted: #6b7280;
+}
+
+/* =========================================================
+   PAGE LAYOUT
+========================================================= */
+.dept-page {
+  background: var(--dept-bg);
+  min-height: 100vh;
+  padding: 24px;
+}
+
+.dept-header {
+  margin-bottom: 16px;
+}
+
+.dept-title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--dept-text);
+}
+
+.dept-subtitle {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: var(--dept-muted);
+}
+
+.dept-toggle-btn {
+  margin-bottom: 16px;
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+.btn {
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  font-weight: 600;
+  padding: 8px 14px;
+  font-size: 13px;
+  background: #e5e7eb;
+  color: var(--dept-text);
+}
+
+.btn.small {
+  padding: 6px 10px;
+  font-size: 12px;
+}
+
+.btn-primary {
+  background: var(--dept-primary);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background: var(--dept-primary-dark);
+}
+
+.btn-danger {
+  background: var(--dept-danger);
+  color: #ffffff;
+}
+
+.btn-ghost {
+  background: #ffffff;
+  border: 1px solid var(--dept-border);
+  color: var(--dept-text);
+}
+
+.btn-ghost:hover {
+  background: #f3f4f6;
+}
+
+/* =========================================================
+   LOADING
+========================================================= */
+.dept-loading {
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--dept-muted);
+  font-weight: 500;
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #d1d5db;
+  border-top-color: var(--dept-primary);
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+.departments-container {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* LEFT: CREATE CARD */
+.card {
+  background: var(--dept-card);
+  border: 1px solid var(--dept-border);
+  border-radius: 10px;
+  padding: 18px;
+}
+
+.create-department-card {
+  width: 360px;
+  flex-shrink: 0;
+}
+
+.create-dept-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.create-department-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.create-department-card input,
+.create-department-card textarea,
+.create-department-card select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--dept-border);
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.create-department-card textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+/* =========================================================
+   TABLE WRAPPER (DESKTOP)
+========================================================= */
+.all-departments-table {
+  flex: 1;
+  min-width: 0;
+}
+
+.table-title {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* Basic table styling (works with your tables.css too) */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table th,
+.table td {
+  padding: 12px 14px;
+  font-size: 13px;
+  border-bottom: 1px solid var(--dept-border);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.table th {
+  background: #f1f5f9;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--dept-muted);
+}
+
+.table tbody tr:hover {
+  background: #f9fafb;
+}
+
+/* Select inside table */
+.table select {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--dept-border);
+  font-size: 13px;
+  background: #ffffff;
+}
+
+/* =========================================================
+   CARD VIEW (MOBILE/TABLET)
+========================================================= */
+.dept-cards-wrapper {
+  display: none; /* hidden on desktop, shown via media query */
+  width: 100%;
+}
+
+.dept-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+}
+
+.dept-card {
+  background: #ffffff;
+  border-radius: 10px;
+  border: 1px solid var(--dept-border);
+  padding: 12px 14px;
+}
+
+.dept-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.dept-card-id {
+  font-size: 11px;
+  color: var(--dept-muted);
+}
+
+.dept-card-name {
+  margin: 2px 0 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--dept-text);
+}
+
+.dept-card-body {
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.dept-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.dept-label {
+  color: var(--dept-muted);
+}
+
+.dept-value {
+  font-weight: 500;
+}
+
+.dept-select {
+  padding: 7px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--dept-border);
+  font-size: 13px;
+}
+
+.dept-card-footer {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.dept-empty-card {
+  padding: 18px;
+  text-align: center;
+  color: var(--dept-muted);
+  background: #ffffff;
+  border-radius: 10px;
+  border: 1px solid var(--dept-border);
+}
+
+/* =========================================================
+   POPUP / MODAL (CONFIRM & EDIT)
+========================================================= */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.popup-box {
+  background: #ffffff;
+  padding: 20px;
+  width: 320px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.18);
+}
+
+.popup-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.popup-message {
+  font-size: 14px;
+  color: var(--dept-muted);
+  margin-bottom: 16px;
+}
+
+.popup-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.edit-form input,
+.edit-form textarea,
+.edit-form select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--dept-border);
+  font-size: 14px;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+/* Desktop / large screens: show table, hide cards */
+@media (min-width: 900px) {
+  .dept-table-wrapper {
+    display: block;
+  }
+
+  .dept-cards-wrapper {
+    display: none;
+  }
+}
+
+/* Tablet + Mobile: stack layout and show cards, hide table */
+@media (max-width: 899px) {
+  .dept-page {
+    padding: 16px;
+  }
+
+  .departments-container {
+    flex-direction: column;
+  }
+
+  .create-department-card {
+    width: 100%;
+  }
+
+  .dept-table-wrapper {
+    display: none;
+  }
+
+  .dept-cards-wrapper {
+    display: block;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .dept-page {
+    padding: 12px;
+  }
+
+  .popup-box {
+    width: 90%;
+  }
+
+  .popup-actions {
+    flex-direction: column;
+  }
+
+  .popup-actions .btn {
+    width: 100%;
+  }
+}
+
+/* Utility */
+.text-center {
+  text-align: center;
+}

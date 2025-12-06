@@ -1,0 +1,40 @@
+/* ============================
+   TABLE BASE STYLES
+================================ */
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 14px;
+}
+
+.table thead {
+    background: #f3f4f6;
+    font-weight: 700;
+}
+
+.table th,
+.table td {
+    text-align: left;
+    padding: 12px 14px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.table tbody tr:hover {
+    background: #f9fafb;
+}
+
+/* EMPTY STATE */
+.table td[colspan] {
+    font-size: 15px;
+    color: #6b7280;
+}
+
+/* Make table Scrollable on Small Screens */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}

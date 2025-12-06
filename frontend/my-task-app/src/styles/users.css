@@ -1,0 +1,358 @@
+/* =========================================================
+   BASE VARIABLES
+========================================================= */
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1e40af;
+  --danger: #dc2626;
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --border: #e5e7eb;
+  --text: #111827;
+  --muted: #6b7280;
+}
+
+/* =========================================================
+   PAGE LAYOUT
+========================================================= */
+.dashboard-content {
+  padding: 24px;
+  background: var(--bg);
+  min-height: 100vh;
+}
+
+.page-header {
+  margin-bottom: 20px;
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.page-subtitle {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+.btn {
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  font-weight: 600;
+  padding: 10px 16px;
+  transition: background 0.2s ease;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: white;
+  
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark);
+}
+
+.btn-danger {
+  background: var(--danger);
+  color: white;
+}
+
+.btn-cancel {
+  background: #9ca3af;
+  color: white;
+}
+
+/* =========================================================
+   FORM
+========================================================= */
+.create-card {
+  margin: 20px 0;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.form-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  font-size: 14px;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+/* =========================================================
+   SEARCH
+========================================================= */
+.search-input {
+  margin: 14px 0;
+  max-width: 320px;
+  margin: 20px;
+}
+
+/* =========================================================
+   LOADING
+========================================================= */
+.loading-box {
+  margin: 25px 0;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* =========================================================
+   TABLE (DESKTOP)
+========================================================= */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.data-table th,
+.data-table td {
+  text-align: left;
+  padding: 12px 14px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.data-table th {
+  background: #f1f5f9;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.data-table tr:hover {
+  background: #f9fafb;
+}
+
+.btn-icon {
+  background: none;
+  border: none;
+  color: var(--danger);
+  font-size: 18px;
+  cursor: pointer;
+  width: 60px;
+  height: 40px;
+  background-color: wheat;
+}
+
+/* =========================================================
+   BADGES
+========================================================= */
+.role-tag {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.role-employee {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.role-dept-head {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+.dept-tag {
+  background: #fef3c7;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* =========================================================
+   USER CARDS (MOBILE & TABLET)
+========================================================= */
+.user-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+.user-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.user-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.user-meta {
+  display: grid;
+  row-gap: 8px;
+  font-size: 13px;
+}
+
+.user-meta div {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.user-meta span:first-child {
+  color: var(--muted);
+}
+
+/* =========================================================
+   POPUP MODAL
+========================================================= */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+   background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.popup-box {
+  background: white;
+  padding: 22px;
+  width: 320px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.popup-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.popup-message {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.popup-actions .btn {
+  min-width: 110px;      /* prevents long buttons */
+  padding: 8px 14px;     /* compact */
+  font-size: 14px;
+  border-radius: 8px;
+}
+.popup-actions .btn-cancel {
+  background: #e5e7eb;   /* light gray */
+  color: #111827;
+}
+
+.popup-actions .btn-cancel:hover {
+  background: #d1d5db;
+}
+
+.popup-actions .btn-danger {
+  background: #ef4444;   /* modern red */
+}
+
+.popup-actions .btn-danger:hover {
+  background: #dc2626;
+}
+
+/* =========================================================
+   RESPONSIVE RULES
+========================================================= */
+@media (max-width: 1024px) {
+  .data-table {
+    display: none;
+  }
+}
+
+@media (min-width: 1025px) {
+  .user-cards-grid {
+    display: none;
+  }
+}
+/* =========================================================
+   USER PREVIEW POPUP (NEW)
+========================================================= */
+
+.user-preview-box {
+  background: white;
+  width: 340px;
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+  animation: pop 0.25s ease;
+}
+
+@keyframes pop {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.preview-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.preview-row span {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.preview-row strong {
+  font-size: 14px;
+}
+
+.user-card.clickable {
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.user-card.clickable:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+.popup-actions.mt {
+  margin-top: 18px;
+  justify-content: center;
+}

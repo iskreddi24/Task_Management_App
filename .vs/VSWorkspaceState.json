@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\frontend",
+    "\\frontend\\my-task-app",
+    "\\frontend\\my-task-app\\src",
+    "\\frontend\\my-task-app\\src\\api",
+    "\\frontend\\my-task-app\\src\\components",
+    "\\frontend\\my-task-app\\src\\context",
+    "\\frontend\\my-task-app\\src\\pages",
+    "\\frontend\\my-task-app\\src\\styles",
+    "\\frontend\\my-task-app\\src\\utils"
+  ],
+  "SelectedNode": "\\frontend\\my-task-app\\src\\App.jsx",
+  "PreviewInSolutionExplorer": false
+}

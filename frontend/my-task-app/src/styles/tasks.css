@@ -1,0 +1,923 @@
+/* =========================================
+   TASKS.CSS - RESPONSIVE & COMPACT
+   ========================================= */
+
+/* 1. GLOBAL VARIABLES */
+:root {
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --bg-body: #f1f5f9;
+  /* Slightly darker grey for contrast */
+  --bg-card: #ffffff;
+  --bg-input: #fffbfb;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --radius: 8px;
+  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --sidebar-width: 280px;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-body);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+  border: 2px solid white;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* 2. LAYOUT */
+.tasks-page {
+  display: flex;
+  min-height: 100vh;
+}
+
+.tasks-main {
+  flex: 1;
+  margin-left: var(--sidebar-width);
+  display: flex;
+  flex-direction: column;
+  transition: margin-left 0.3s ease;
+  width: 100%;
+
+}
+
+.tasks-container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* 3. HEADER */
+.tasks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.tasks-title {
+  font-size: 24px;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.tasks-actions {
+  display: flex;
+  gap: 10px;
+  
+}
+
+/* 4. STATS (Compact Grid) */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+
+}
+
+.stat-card {
+  background: var(--bg-card);
+  padding: 16px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  transition: transform 0.2s;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.stat-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* 5. CREATE FORM */
+.create-card {
+  background: var(--bg-card);
+  padding: 24px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  margin-bottom: 24px;
+  box-shadow: var(--shadow);
+}
+
+.create-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-field.full {
+  grid-column: 1 / -1;
+}
+
+.form-field label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* 6. COMPACT FILTERS */
+.filter-container {
+  background: var(--bg-card);
+  padding: 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  margin-bottom: 24px;
+  box-shadow: var(--shadow);
+}
+
+.filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-end;
+}
+
+/* Quick Filters Row */
+.quick-filters {
+  /* width: 100%; */
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  gap: 8px;
+
+  /* flex-direction: column; */
+  /* flex-wrap: wrap; */
+}
+
+.quick-filters button {
+  background: white;
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-weight: 500;
+  transition: 0.2s;
+  width: 110px;
+  background-color: #0f172a;
+  color: #ffffff;
+}
+
+.quick-filters button:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: #f0fdfa;
+}
+
+/* Inputs Layout */
+.filter-group {
+  flex: 1;
+  min-width: 140px;
+  max-width: 200px;
+}
+
+.filter-group.search-bar {
+  flex: 2;
+  min-width: 200px;
+  max-width: 250px;
+}
+
+.filter-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+/* Global Inputs */
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  /* Prevents zoom on mobile */
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg-input);
+  transition: border-color 0.2s;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: white;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+/* Filter Buttons */
+.filter-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #f1f5f9;
+}
+
+/* 7. TASK LIST & CARDS */
+.tasks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.task-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: all 0.2s;
+}
+
+.task-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary);
+}
+
+.task-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 10px;
+}
+
+.task-title {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0;
+  color: var(--text-main);
+}
+
+.status-pill {
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  color: white;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.task-meta {
+  font-size: 13px;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.task-meta strong {
+  color: var(--text-main);
+}
+
+.task-description {
+  background: var(--bg-body);
+  padding: 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  color: #334155;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  text-align: left;
+  margin-top: 4px;
+  /* width: 200px; */
+}
+
+.card-actions {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* 8. BUTTONS (FIXED SIZING) */
+.btn {
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+  width: auto;
+  /* REMOVED FIXED WIDTH */
+  min-width: 80px;
+  max-width: 120px;
+  /* Ensures buttons aren't tiny */
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: rgb(255, 255, 255);
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+  
+}
+
+.btn-success {
+  background: #10b981;
+  color: white;
+}
+
+.btn-danger {
+  background: #ef4444;
+  color: white;
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-main);
+}
+
+.btn-ghost:hover {
+  background: #000;
+  color: #3b82f6;
+}
+.link-btn:hover {
+  color: #2563eb;
+}
+.preview-btn {
+  background: #0f172a;
+  color: #3b82f6;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.preview-btn:hover {
+  background: #1e293b;
+  color: #60a5fa;
+}
+/* 9. PAGINATION */
+.pagination {
+  margin-top: 32px;
+  background: white;
+  padding: 12px 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.pagination-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.pagination-left select {
+  width: auto;
+  padding: 6px 10px;
+}
+
+.pagination-controls {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 8px;
+  align-items: center;
+}
+
+.pagination-controls button {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--text-main);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: #f8fafc;
+}
+
+.pagination-controls .active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.pagination-controls button:disabled {
+  background: #f1f5f9;
+  color: #cbd5e1;
+  cursor: not-allowed;
+}
+
+/* 10. MODALS */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal,
+.history-modal {
+  background: white;
+  width: 92%;
+  max-width: 550px;
+  max-height: 85vh;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header,
+.history-modal-header {
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.modal-body,
+.history-modal-body {
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.modal-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  background: #f8fafc;
+}
+
+/* 11. RESPONSIVE MOBILE FIXES */
+@media (max-width: 768px) {
+
+  /* Fix Sidebar */
+  .tasks-main {
+    margin-left: 0;
+    width: 100%;
+
+  }
+
+  .tasks-container {
+    padding: 16px;
+
+  }
+
+  /* Header */
+  .tasks-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .tasks-actions {
+    width: 100%;
+    gap: 10px;
+
+  }
+
+  .tasks-actions .btn {
+    flex: 1;
+  }
+
+  /* Buttons stretch on mobile */
+
+  /* Filters - Intelligent Grid */
+  .filter-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* Search & Dept take full width */
+  .filter-group.search-bar {
+    flex: 100%;
+    width: 100%;
+  }
+
+  /* Dates sit side-by-side (50% each minus gap) */
+  .filter-group {
+    flex: 1 1 45%;
+  }
+
+  /* Filter Buttons */
+  .filter-actions {
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .filter-actions .btn {
+    flex: 1;
+    width: auto;
+  }
+
+  /* Equal width buttons */
+
+  /* Form Grid */
+  .create-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Stats - 2 Columns */
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  .stat-card {
+    padding: 12px;
+
+  }
+
+  .stat-value {
+    font-size: 20px;
+  }
+
+  /* Task List */
+  .tasks-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Pagination */
+  .pagination {
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+/* ============================================
+   TASK HISTORY - MODERN UPGRADED UI (NO JSX CHANGE)
+============================================ */
+
+/* Make modal stylish */
+.history-modal {
+  background: #ffffff;
+  border-radius: 14px !important;
+  width: 620px !important;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: absolute;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+  cursor: grab;
+  border: none !important;
+}
+
+/* Header */
+.history-modal-header {
+  background: #f8fafc;
+  padding: 18px 24px !important;
+  font-size: 20px !important;
+  font-weight: 700;
+  border-bottom: 1px solid #e2e8f0 !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: grab;
+}
+
+/* Close button */
+.history-modal-header .btn-close {
+  background: #ef4444 !important;
+  color: white !important;
+  border-radius: 6px;
+  font-size: 18px;
+  padding: 4px 10px;
+}
+
+/* Body scroll styling */
+.history-modal-body {
+  padding: 22px 26px !important;
+}
+
+.history-modal-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+.history-modal-body::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+/* Each history entry */
+.history-item {
+  background: #f9fafb;
+  border-left: 4px solid #4f46e5;
+  padding: 16px 18px;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  transition: 0.2s ease;
+}
+
+.history-item:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Top row (action + timestamp) */
+.history-item .history-top {
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 6px;
+}
+
+/* Username */
+.history-item>div:nth-child(2) strong {
+  font-size: 14px;
+  color: #334155;
+}
+
+/* Comment bubble */
+.history-comment {
+  font-size: 14px;
+  background: #eef2ff;
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-top: 8px;
+  color: #4338ca;
+  border-left: 3px solid #6366f1;
+}
+
+/* File link */
+.history-file a {
+  color: #2563eb;
+  font-weight: 600;
+  margin-top: 8px;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.history-file a:hover {
+  text-decoration: underline;
+}
+
+/* Drag cursor active */
+.history-modal:active,
+.history-modal-header:active {
+  cursor: grabbing;
+}
+
+/* ============================================
+   MOBILE RESPONSIVE FIXES FOR HISTORY MODAL
+============================================ */
+@media (max-width: 480px) {
+
+  /* Reduce modal size */
+  .history-modal {
+    width: 92% !important;
+    left: 4% !important;
+    right: 4% !important;
+    max-height: 75vh !important;
+    padding: 0 !important;
+    transform: none !important;
+    /* prevent centering issues */
+    border-radius: 10px !important;
+  }
+
+  /* Header adjusts for small screens */
+  .history-modal-header {
+    padding: 14px 16px !important;
+    font-size: 18px !important;
+  }
+
+  .history-modal-header .btn-close {
+    padding: 3px 8px !important;
+    font-size: 16px !important;
+    width: 60px;
+  }
+
+  /* Reduce body padding for small screen */
+  .history-modal-body {
+    padding: 14px !important;
+  }
+
+  .quick-filters {
+    /* width: 100%; */
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 8px;
+
+    flex-direction: row;
+    width: 290px;
+    /* flex-wrap: wrap; */
+  }
+
+  /* Resize history item cards */
+  .history-item {
+    padding: 12px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .history-item .history-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  /* Comment bubble smaller */
+  .history-comment {
+    font-size: 13px !important;
+    padding: 8px 10px !important;
+  }
+
+  /* File link spacing */
+  .history-file a {
+    font-size: 14px !important;
+  }
+
+  .history-modal:active,
+  .history-modal-header:active {
+    cursor: grabbing;
+  }
+}
+
+/* Tablet responsive */
+@media (max-width: 768px) {
+  .history-modal {
+    width: 80% !important;
+    left: 10% !important;
+    right: 10% !important;
+    max-height: 80vh !important;
+  }
+}
+.image-preview-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+}
+
+.image-preview-overlay img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.8);
+  cursor: grab;
+}
+/* =========================================
+   FIXES FOR TasksPage.jsx (SAFE ADDITIONS)
+   ========================================= */
+
+/* ✅ 1. History modal overlay (missing but required by JSX) */
+.history-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(2px);
+  z-index: 2500;
+}
+
+/* ✅ 2. Ensure history modal always floats above page */
+.history-modal {
+  z-index: 2600 !important;
+}
+
+/* ✅ 3. Drag cursor only on header visually (no JSX change) */
+.history-modal {
+  cursor: default;
+}
+.history-modal-header {
+  cursor: grab;
+}
+.history-modal-header:active {
+  cursor: grabbing;
+}
+
+/* ✅ 4. Attachment preview button alignment */
+.preview-btn {
+  margin-left: 6px;
+  font-size: 12px;
+  height: 26px;
+}
+
+/* Small variant explicitly supported */
+.preview-btn.small {
+  padding: 4px 10px;
+  font-size: 11px;
+  height: 24px;
+}
+
+/* ✅ 5. Attachment container spacing fix */
+.attachment-preview-container {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* ✅ 6. INLINE preview box fix (keeps your old behavior) */
+.image-preview-box {
+  margin-top: 6px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.image-preview-box img {
+  width: 100%;
+  max-height: 220px;
+  object-fit: contain;
+  background: #020617;
+}
+
+/* ✅ 7. FULLSCREEN IMAGE PREVIEW – ensure always above everything */
+.image-preview-overlay {
+  z-index: 4000 !important;
+}
+
+/* ✅ 8. Mobile fix: history modal never off-screen */
+@media (max-width: 480px) {
+  .history-modal {
+    left: 4% !important;
+    right: 4% !important;
+    max-width: 92% !important;
+  }
+}

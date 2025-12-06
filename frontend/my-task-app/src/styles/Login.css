@@ -1,0 +1,203 @@
+
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background: #f6f6f6;
+    gap: 60px;
+    position: relative;
+}
+
+
+.left-section {
+    display: none; 
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.logo-text {
+    font-family: "Brush Script MT", "Brushstrike", "Brush", sans-serif;
+    font-weight: 900;
+    font-size: 48px;
+    letter-spacing: 2px;
+    text-align: center;
+    margin-bottom: 20px;
+    white-space: nowrap;
+}
+
+.logo-text .sri {
+    color: #000;
+    font-style: italic;
+    font-size: xx-large;
+    
+}
+
+.logo-text .balaji {
+    color: #e10600;
+    font-style: italic;
+    font-size: xx-large;
+}
+
+.logo-text .ads {
+    color: #000;
+    font-style: italic;
+    font-size: xx-large;
+}
+
+@media (max-width: 900px) {
+    .left-section {
+        display: flex;
+    }
+
+    .logo-text {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 700px) {
+    .logo-text {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 500px) {
+    .logo-text {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 380px) {
+    .logo-text {
+        font-size: 20px;
+    }
+}
+
+
+.login-card {
+    background: #fff;
+    padding: 40px;
+    width: 100%;
+    max-width: 420px;
+    border-radius: 16px;
+    border: 1px solid #ddd;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.login-card h2 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+
+.center-logo {
+    margin-bottom: 5px;
+    font-size: 36px;
+    text-align: center;
+}
+
+@media (max-width: 700px) {
+    .center-logo {
+        font-size: xx-large;
+    }
+}
+
+@media (max-width: 500px) {
+    .center-logo {
+        font-size: xx-large;
+    }
+}
+
+@media (max-width: 380px) {
+    .center-logo {
+        font-size: xx-large;
+    }
+}
+
+
+label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #fafafa;
+    font-size: 15px;
+    transition: 0.2s;
+}
+
+input:focus {
+    background: #fff;
+    border-color: #000;
+}
+
+
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    background: #000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #222;
+}
+
+
+.login-card p {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.login-card a {
+    color: #333;
+    text-decoration: none;
+}
+
+.login-card a:hover {
+    text-decoration: underline;
+}
+
+
+@media (max-width: 900px) {
+    .login-container {
+        padding: 20px;
+        gap: 0;
+    }
+
+    .login-card {
+        margin: 0 auto;
+    }
+    .logo-text .sri {
+    color: #000;
+    font-style: italic;
+    font-size:large;
+    
+}
+
+.logo-text .balaji {
+    color: #e10600;
+    font-style: italic;
+    font-size:large;
+}
+
+.logo-text .ads {
+    color: #000;
+    font-style: italic;
+    font-size:large;
+}
+}
