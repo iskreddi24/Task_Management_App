@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthProvider";
+import { AuthContext } from "../context/AuthContext";
 import { isTokenExpired } from "../utils/token";
 
 export default function ProtectedRoute({ children }) {

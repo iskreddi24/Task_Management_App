@@ -1,67 +1,36 @@
-// import axios from "axios";
-
-// const api = axios.create({
-//   baseURL: "http://localhost:8081/api/v1",
-// });
-
-// // Attach token
-// api.interceptors.request.use((config) => {
-//   const token = localStorage.getItem("token");
-//   if (token) config.headers.Authorization = `Bearer ${token}`;
-//   return config;
-// });
-
-// // Auto logout on token expiry
-// api.interceptors.response.use(
-//   (res) => res,
-//   (err) => {
-//     if (err.response?.status === 401) {
-//       localStorage.removeItem("token");
-//       window.location.href = "/login";
-//     }
-//     return Promise.reject(err);
-//   }
-// );
-
-// export default api;
-// api/api.js
 import axios from "axios";
 
+// 1. Capture values from .env
+const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:8081/api/v1";
+export const FILE_BASE_URL = import.meta.env.VITE_FILE_BASE || "http://localhost:8081";
+export const SOCKET_BASE_URL = import.meta.env.VITE_SOCKET_BASE || "http://localhost:8081";
+
+// 2. Create Axios Instance
 const api = axios.create({
-  // CHANGE THIS LINE:
-  // FROM: "http://localhost:8081/api/v1"
-  // TO:   "http://192.168.29.112:8081/api/v1" 
-  baseURL: "http://192.168.29.112:8081/api/v1",
+  baseURL: API_BASE,
+  timeout: 20000,
 });
 
-// -----------------------------------------------------
-//  🔐 REQUEST INTERCEPTOR → Attach JWT Token Automatically
-// -----------------------------------------------------
+// 3. Request Interceptor (Your code was good here)
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
-
-    if (token) {
+    if (token && !config.url.includes("/login") && !config.url.includes("/register")) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-
     return config;
   },
   (error) => Promise.reject(error)
 );
 
-// -----------------------------------------------------
-//  🚨 RESPONSE INTERCEPTOR → Auto Logout on 401 Unauthorized
-// -----------------------------------------------------
+// 4. Response Interceptor (Your code was good here)
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    // If token expired or invalid → logout user
-    if (error.response?.status === 401) {
+    if (error.response && error.response.status === 401) {
       localStorage.removeItem("token");
-      window.location.href = "/login";
+      // Optional: Redirect to login logic here if needed
     }
-
     return Promise.reject(error);
   }
 );

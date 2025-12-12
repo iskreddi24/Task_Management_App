@@ -45,13 +45,13 @@
   border-radius: 6px;
   font-weight: 600;
   padding: 10px 16px;
+  width: 200px;
   transition: background 0.2s ease;
 }
 
 .btn-primary {
   background: var(--primary);
   color: white;
-  
 }
 
 .btn-primary:hover {
@@ -112,7 +112,7 @@
 .search-input {
   margin: 14px 0;
   max-width: 320px;
-  margin: 20px;
+  margin: 20px 0;
 }
 
 /* =========================================================
@@ -154,15 +154,38 @@
   background: #f9fafb;
 }
 
+/* smaller, cleaner icons */
 .btn-icon {
-  background: none;
+  background: transparent;
   border: none;
-  color: var(--danger);
-  font-size: 18px;
+  font-size: 29px;
   cursor: pointer;
-  width: 60px;
+  width: 40px;
   height: 40px;
-  background-color: wheat;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-icon:hover {
+  background: #f3f4f6;
+}
+
+/* action colors */
+.btn-icon.success {
+  color: #16a34a;
+}
+
+.btn-icon.danger {
+  color: #dc2626;
+}
+
+.table-actions {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+  align-items: center;
 }
 
 /* =========================================================
@@ -207,6 +230,7 @@
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 14px;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
 }
 
 .user-card-header {
@@ -233,13 +257,75 @@
   color: var(--muted);
 }
 
+/* click highlight */
+.user-card.clickable {
+  cursor: pointer;
+}
+
+.user-card.clickable:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+/* expanded bottom area */
+.user-expanded {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border);
+  font-size: 13px;
+}
+
+.preview-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.preview-row span {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.preview-row strong {
+  font-size: 13px;
+}
+
+/* status badge */
+.status-tag {
+  font-size: 11px;
+  padding: 4px 10px;
+  border-radius: 14px;
+  font-weight: 600;
+}
+
+.status-tag.active {
+  background: #e7f9ef;
+  color: #0a7a3e;
+}
+
+.status-tag.inactive {
+  background: #fdecea;
+  color: #b42318;
+}
+
+/* visually dim inactive users */
+.inactive-user {
+  opacity: 0.6;
+}
+
+/* card action bar */
+.card-actions {
+  display: flex;
+  gap: 8px;
+}
+
 /* =========================================================
    POPUP MODAL
 ========================================================= */
 .popup-overlay {
   position: fixed;
   inset: 0;
-   background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -273,26 +359,10 @@
 }
 
 .popup-actions .btn {
-  min-width: 110px;      /* prevents long buttons */
-  padding: 8px 14px;     /* compact */
+  min-width: 110px;
+  padding: 8px 14px;
   font-size: 14px;
   border-radius: 8px;
-}
-.popup-actions .btn-cancel {
-  background: #e5e7eb;   /* light gray */
-  color: #111827;
-}
-
-.popup-actions .btn-cancel:hover {
-  background: #d1d5db;
-}
-
-.popup-actions .btn-danger {
-  background: #ef4444;   /* modern red */
-}
-
-.popup-actions .btn-danger:hover {
-  background: #dc2626;
 }
 
 /* =========================================================
@@ -309,50 +379,26 @@
     display: none;
   }
 }
-/* =========================================================
-   USER PREVIEW POPUP (NEW)
-========================================================= */
-
-.user-preview-box {
-  background: white;
-  width: 340px;
-  border-radius: 14px;
-  padding: 22px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-  animation: pop 0.25s ease;
+/* smoother inactive animation */
+.inactive-user {
+  opacity: 0.6;
+  filter: grayscale(40%);
+  transition: opacity 0.3s ease, filter 0.3s ease;
 }
 
-@keyframes pop {
-  from { transform: scale(0.95); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+/* icon polish */
+.btn-icon {
+  font-size: 16px;
+  width: 36px;
+  height: 36px;
 }
 
-.preview-row {
+.btn-icon:hover {
+  transform: scale(1.08);
+}
+
+/* desktop + mobile consistency */
+.card-actions {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 12px;
-}
-
-.preview-row span {
-  color: #6b7280;
-  font-size: 13px;
-}
-
-.preview-row strong {
-  font-size: 14px;
-}
-
-.user-card.clickable {
-  cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.user-card.clickable:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-}
-
-.popup-actions.mt {
-  margin-top: 18px;
-  justify-content: center;
+  gap: 8px;
 }

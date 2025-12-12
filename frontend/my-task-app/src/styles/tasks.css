@@ -1,138 +1,187 @@
 /* =========================================
-   TASKS.CSS - RESPONSIVE & COMPACT
+   TASKS.CSS - MODERN PRO UI (LIGHT THEME)
    ========================================= */
 
-/* 1. GLOBAL VARIABLES */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* 1. DESIGN TOKENS & VARIABLES */
 :root {
-  --primary: #4f46e5;
-  --primary-hover: #4338ca;
-  --bg-body: #f1f5f9;
-  /* Slightly darker grey for contrast */
+  /* Brand Colors - Soft & Professional */
+  --primary: #6366f1;       /* Indigo 500 */
+  --primary-hover: #4f46e5; /* Indigo 600 */
+  --primary-light: #e0e7ff; /* Indigo 100 */
+  
+  /* Semantic Colors */
+  --success-bg: #dcfce7;
+  --success-text: #166534;
+  --warning-bg: #fef9c3;
+  --warning-text: #854d0e;
+  --danger-bg: #fee2e2;
+  --danger-text: #991b1b;
+  --info-bg: #dbeafe;
+  --info-text: #1e40af;
+
+  /* Neutral Scale (No harsh blacks) */
+  --bg-body: #f8fafc;       /* Slate 50 */
   --bg-card: #ffffff;
-  --bg-input: #fffbfb;
-  --text-main: #0f172a;
-  --text-muted: #64748b;
-  --border: #e2e8f0;
-  --radius: 8px;
-  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --bg-subtle: #f1f5f9;     /* Slate 100 */
+  
+  --text-main: #1e293b;     /* Slate 800 */
+  --text-secondary: #64748b;/* Slate 500 */
+  --text-light: #94a3b8;    /* Slate 400 */
+
+  --border: #e2e8f0;        /* Slate 200 */
+  --border-focus: #c7d2fe;  /* Indigo 200 */
+  
+  /* Spacing & shape */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  
   --sidebar-width: 280px;
+  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* 2. GLOBAL RESET */
 body {
   margin: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: 'Inter', sans-serif;
   background-color: var(--bg-body);
   color: var(--text-main);
   -webkit-font-smoothing: antialiased;
-  border: 2px solid white;
+  line-height: 1.5;
 }
 
 * {
   box-sizing: border-box;
 }
 
-/* 2. LAYOUT */
+button, input, select, textarea {
+  font-family: inherit;
+}
+
+/* 3. LAYOUT STRUCTURE */
 .tasks-page {
   display: flex;
   min-height: 100vh;
+  width: 100%;
 }
 
 .tasks-main {
   flex: 1;
+  /* Fluid width calculation based on sidebar */
+  width: calc(100% - var(--sidebar-width)); 
   margin-left: var(--sidebar-width);
   display: flex;
   flex-direction: column;
-  transition: margin-left 0.3s ease;
-  width: 100%;
-
+  transition: margin-left 0.3s ease, width 0.3s ease;
+  padding-bottom: 40px;
 }
 
 .tasks-container {
-  max-width: 1200px;
   width: 100%;
+  max-width: 1400px; /* Stretchable on large screens */
   margin: 0 auto;
-  padding: 24px;
+  padding: 32px;
 }
 
-/* 3. HEADER */
+/* 4. HEADER SECTION */
 .tasks-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
-  flex-wrap: wrap;
-  gap: 16px;
+  margin-bottom: 32px;
+  gap: 20px;
 }
 
 .tasks-title {
-  font-size: 24px;
-  font-weight: 800;
-  margin: 0;
-  letter-spacing: -0.5px;
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-main);
+  letter-spacing: -0.02em;
 }
 
 .tasks-actions {
   display: flex;
-  gap: 10px;
-  
+  gap: 12px;
 }
 
-/* 4. STATS (Compact Grid) */
+/* 5. STATS GRID (Stretchable) */
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-  gap: 12px;
-  margin-bottom: 24px;
-
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 20px;
+  margin-bottom: 32px;
 }
 
 .stat-card {
   background: var(--bg-card);
-  padding: 16px;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
+  padding: 20px;
+  border-radius: var(--radius-md);
   border: 1px solid var(--border);
-  transition: transform 0.2s;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .stat-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-focus);
 }
 
 .stat-value {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 700;
   color: var(--text-main);
+  line-height: 1.2;
 }
 
 .stat-label {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 600;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   text-transform: uppercase;
-  margin-top: 4px;
+  letter-spacing: 0.5px;
+  margin-top: 8px;
 }
 
-/* 5. CREATE FORM */
-.create-card {
+/* 6. FORMS & INPUTS (Modern & Clean) */
+.create-card, 
+.filter-container {
   background: var(--bg-card);
-  padding: 24px;
-  border-radius: var(--radius);
+  padding: 15px;
+  border-radius: var(--radius-lg);
   border: 1px solid var(--border);
-  margin-bottom: 24px;
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 32px;
+  
+}
+
+.create-card h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: 600;
 }
 
 .create-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
+  gap: 20px;
 }
 
 .form-field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
+
 }
 
 .form-field.full {
@@ -140,306 +189,356 @@ body {
 }
 
 .form-field label {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
-  text-transform: uppercase;
+  color: var(--text-main);
 }
 
-/* 6. COMPACT FILTERS */
-.filter-container {
-  background: var(--bg-card);
-  padding: 20px;
-  border-radius: var(--radius);
+/* Input Styling */
+input, select, textarea {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 14px;
   border: 1px solid var(--border);
-  margin-bottom: 24px;
-  box-shadow: var(--shadow);
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+  color: var(--text-main);
+  transition: var(--transition);
 }
 
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--text-light);
+}
+
+/* 7. FILTER BAR (Toolbar Style) */
 .filter-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 20px;
   align-items: flex-end;
 }
 
-/* Quick Filters Row */
+/* Quick Filters (Pill Style) */
 .quick-filters {
-  /* width: 100%; */
-  padding-bottom: 12px;
-  margin-bottom: 12px;
-  border-bottom: 1px solid var(--border);
   display: flex;
   gap: 8px;
-
-  /* flex-direction: column; */
-  /* flex-wrap: wrap; */
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+  width: 100%;
+  flex-wrap: wrap;
 }
 
 .quick-filters button {
-  background: white;
-  border: 1px solid var(--border);
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 12px;
-  cursor: pointer;
-  color: var(--text-muted);
+  background: var(--bg-subtle);
+  border: 1px solid transparent;
+  color: var(--text-secondary);
+  padding: 6px 16px;
+  border-radius: 50px; /* Pill shape */
+  font-size: 13px;
   font-weight: 500;
-  transition: 0.2s;
-  width: 110px;
-  background-color: #0f172a;
-  color: #ffffff;
+  cursor: pointer;
+  transition: var(--transition);
+  width: 150px;
+
 }
 
 .quick-filters button:hover {
-  border-color: var(--primary);
+  background: white;
+  border-color: var(--border);
   color: var(--primary);
-  background: #f0fdfa;
+  box-shadow: var(--shadow-sm);
 }
 
-/* Inputs Layout */
+/* Filter Groups */
 .filter-group {
   flex: 1;
-  min-width: 140px;
-  max-width: 200px;
+  min-width: 150px;
+  max-width: 80%;
+  background-color: #f2efef;
 }
 
 .filter-group.search-bar {
-  flex: 2;
-  min-width: 200px;
-  max-width: 250px;
+  flex: 2; /* Search takes more space */
+  min-width: 250px;
+  max-width: 70%;
+  border-radius: 1px;
+  
 }
 
 .filter-group label {
-  display: block;
+  color: var(--text-secondary);
   font-size: 12px;
-  font-weight: 600;
-  color: var(--text-muted);
   margin-bottom: 6px;
-}
-
-/* Global Inputs */
-input,
-select,
-textarea {
-  width: 100%;
-  padding: 10px 12px;
-  font-size: 14px;
-  /* Prevents zoom on mobile */
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  background: var(--bg-input);
-  transition: border-color 0.2s;
-}
-
-input:focus,
-select:focus {
-  outline: none;
-  border-color: var(--primary);
-  background: white;
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-}
-
-/* Filter Buttons */
-.filter-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px solid #f1f5f9;
-}
-
-/* 7. TASK LIST & CARDS */
-.tasks-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 20px;
-}
-
-.task-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  transition: all 0.2s;
-}
-
-.task-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  border-color: var(--primary);
-}
-
-.task-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
-  gap: 10px;
-}
-
-.task-title {
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 1.3;
-  margin: 0;
-  color: var(--text-main);
-}
-
-.status-pill {
-  font-size: 10px;
-  padding: 4px 10px;
-  border-radius: 20px;
-  color: white;
-  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.task-meta {
-  font-size: 13px;
-  color: var(--text-muted);
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding-bottom: 12px;
-  border-bottom: 1px solid var(--border);
-}
-
-.task-meta strong {
-  color: var(--text-main);
-}
-
-.task-description {
-  background: var(--bg-body);
-  padding: 12px;
-  font-size: 14px;
-  border-radius: 6px;
-  border: 1px solid var(--border);
-  color: #334155;
-}
-
-.link-btn {
-  background: none;
-  border: none;
-  color: var(--primary);
-  font-size: 13px;
   font-weight: 600;
-  cursor: pointer;
-  padding: 0;
-  text-align: left;
-  margin-top: 4px;
-  /* width: 200px; */
 }
 
-.card-actions {
-  margin-top: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.filter-actions {
+  /* display: flex; */
+  /* justify-content: flex-end; */
+  /* gap: 12px; */
+  /* margin-top: 20px; */
+  /* padding-top: 20px; */
+  /* border-top: 1px solid var(--border); */
+  /* width: 50%;
+  flex-direction:column;
+  justify-content: center; */
+  width: 100%;
+  padding: 10px;
+  align-items: center;
 }
 
-/* 8. BUTTONS (FIXED SIZING) */
+/* 8. BUTTONS (Refined) */
 .btn {
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 600;
-  padding: 8px 16px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: 0.2s;
-  width: auto;
-  /* REMOVED FIXED WIDTH */
-  min-width: 80px;
-  max-width: 120px;
-  /* Ensures buttons aren't tiny */
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: var(--transition);
+  min-width: 100px;
+  max-width: fit-content;
+  text-decoration: none;
 }
 
 .btn-primary {
   background: var(--primary);
-  color: rgb(255, 255, 255);
+  color: white;
+  box-shadow: 0 1px 2px rgba(99, 102, 241, 0.3);
 }
-
 .btn-primary:hover {
   background: var(--primary-hover);
   transform: translateY(-1px);
-  
 }
 
 .btn-success {
   background: #10b981;
   color: white;
 }
+.btn-success:hover { background: #059669; }
 
 .btn-danger {
-  background: #ef4444;
-  color: white;
+  background: white;
+  color: #ef4444;
+  border-color: #fca5a5;
+}
+.btn-danger:hover {
+  background: #fef2f2;
+  border-color: #ef4444;
 }
 
 .btn-ghost {
-  background: transparent;
-  border: 1px solid var(--border);
-  color: var(--text-main);
-}
-
-.btn-ghost:hover {
-  background: #000;
-  color: #3b82f6;
-}
-.link-btn:hover {
-  color: #2563eb;
-}
-.preview-btn {
-  background: #0f172a;
-  color: #3b82f6;
-  padding: 6px 12px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-}
-
-.preview-btn:hover {
-  background: #1e293b;
-  color: #60a5fa;
-}
-/* 9. PAGINATION */
-.pagination {
-  margin-top: 32px;
   background: white;
-  padding: 12px 20px;
-  border-radius: var(--radius);
+  color: var(--text-secondary);
+  border-color: var(--border);
+}
+.btn-ghost:hover {
+  background: var(--bg-subtle);
+  color: var(--text-main);
+  border-color: var(--text-secondary);
+}
+
+.btn-purple {
+  background: #8b5cf6;
+  color: white;
+}
+.btn-purple:hover { background: #7c3aed; }
+
+/* 9. TASK LIST & CARDS (The Hero) */
+.tasks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 24px;
+}
+
+.task-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.task-card:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+}
+
+/* Card Header */
+.task-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  gap: 12px;
+}
+
+.task-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-main);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Status Pills (Pastel) */
+.status-pill {
+  font-size: 11px;
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+/* Note: The React JS sets inline background-color. 
+   For best UI, modify JS to use classes, but inline works for now. */
+
+/* Card Meta */
+.task-meta {
+  font-size: 13px;
+  color: var(--text-secondary);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--bg-subtle);
+}
+
+.task-meta div {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.task-meta strong {
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+/* Descriptions */
+.link-btn {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.task-description {
+  background: var(--bg-subtle);
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  color: var(--text-main);
+  line-height: 1.6;
+  margin-bottom: 16px;
+  border: 1px solid var(--border);
+}
+
+/* Attachments */
+.attachments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.attachment-preview-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-subtle);
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.file-link {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--primary);
+  text-decoration: none;
+}
+.file-link:hover { text-decoration: underline; }
+
+.preview-btn {
+  background: white;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.preview-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* Card Footer Actions */
+.card-actions {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Sub-inputs in card (submit/review) */
+.submit-row, .review-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--bg-subtle);
+  padding: 12px;
+  border-radius: var(--radius-sm);
+}
+
+.review-actions {
+  display: flex;
+  gap: 10px;
+}
+.review-actions .btn { flex: 1; }
+
+/* 10. PAGINATION */
+.pagination {
+  background: var(--bg-card);
+  padding: 16px 24px;
+  border-radius: var(--radius-md);
   border: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 12px;
-}
-
-.pagination-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-.pagination-left select {
-  width: auto;
-  padding: 6px 10px;
+  gap: 16px;
+  margin-top: 40px;
 }
 
 .pagination-controls {
-  display: flex !important;
-  flex-direction: row !important;
-  gap: 8px;
-  align-items: center;
+  display: flex;
+  gap: 6px;
 }
 
 .pagination-controls button {
@@ -450,474 +549,260 @@ select:focus {
   justify-content: center;
   background: white;
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
   cursor: pointer;
-  color: var(--text-main);
-  font-size: 14px;
-  font-weight: 600;
+  transition: var(--transition);
 }
 
 .pagination-controls button:hover:not(:disabled) {
   border-color: var(--primary);
   color: var(--primary);
-  background: #f8fafc;
+  background: var(--primary-light);
 }
 
-.pagination-controls .active {
+.pagination-controls button.active {
   background: var(--primary);
   color: white;
   border-color: var(--primary);
 }
 
 .pagination-controls button:disabled {
-  background: #f1f5f9;
-  color: #cbd5e1;
+  background: var(--bg-subtle);
+  color: var(--text-light);
   cursor: not-allowed;
 }
 
-/* 10. MODALS */
-.modal-overlay {
+/* 11. MODALS (Glassmorphism & Centered) */
+.modal-overlay,
+.history-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.6);
-  backdrop-filter: blur(2px);
+  background: rgba(15, 23, 42, 0.4); /* Dark blue tint */
+  backdrop-filter: blur(4px);
+  z-index: 2000;
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  padding: 20px;
 }
 
-.modal,
-.history-modal {
+.modal, .history-modal {
   background: white;
-  width: 92%;
-  max-width: 550px;
-  max-height: 85vh;
-  border-radius: 12px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  animation: slideUp 0.3s ease-out;
+  border: 1px solid var(--border);
 }
 
-.modal-header,
-.history-modal-header {
-  padding: 20px;
+/* History Modal Specifics (Draggable logic retained) */
+.history-modal {
+  position: absolute; /* Needed for drag */
+  z-index: 2100;
+  width: 500px !important; /* Keep original request width preference */
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-header, .history-modal-header {
+  padding: 20px 24px;
   border-bottom: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-weight: 700;
-  font-size: 18px;
+  background: #fdfdfd;
 }
 
-.modal-body,
-.history-modal-body {
-  padding: 20px;
+.modal-header h3, .history-modal-header strong {
+  margin: 0;
+  font-size: 18px;
+  color: var(--text-main);
+}
+
+.btn-close {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  color: var(--text-light);
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+}
+.btn-close:hover { color: var(--danger-text); }
+
+.modal-body, .history-modal-body {
+  padding: 24px;
   overflow-y: auto;
 }
 
 .modal-footer {
-  padding: 16px 20px;
+  padding: 20px 24px;
+  background: var(--bg-subtle);
   border-top: 1px solid var(--border);
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
-  background: #f8fafc;
+  gap: 12px;
 }
 
-/* 11. RESPONSIVE MOBILE FIXES */
-@media (max-width: 768px) {
+/* History List Items */
+.history-item {
+  position: relative;
+  padding-left: 24px;
+  margin-bottom: 24px;
+  border-left: 2px solid var(--border);
+}
 
-  /* Fix Sidebar */
+.history-item::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 2px solid white;
+  box-shadow: 0 0 0 2px var(--primary-light);
+}
+
+.history-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+  font-size: 13px;
+}
+
+.history-top strong { color: var(--primary); }
+.history-top span { color: var(--text-light); font-size: 12px; }
+
+.history-comment {
+  background: var(--bg-subtle);
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+/* 12. IMAGE PREVIEW */
+.image-preview-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 5000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+.image-preview-overlay img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 4px;
+  box-shadow: 0 0 20px rgba(255,255,255,0.1);
+}
+
+/* =========================================
+   13. RESPONSIVE MEDIA QUERIES
+   ========================================= */
+
+/* Tablet & Smaller Laptops */
+@media (max-width: 1024px) {
+  .tasks-container {
+    padding: 20px;
+  }
+  
+  .filter-group {
+    flex: 1 1 30%; /* 3 items per row */
+  }
+}
+
+/* Mobile Devices */
+@media (max-width: 768px) {
+  .tasks-page {
+    flex-direction: column; /* Stack sidebar on top if not hidden by JS */
+  }
+
+  /* Assuming sidebar might be hidden/hamburger on mobile, 
+     we reset margins to ensure full width usage */
   .tasks-main {
     margin-left: 0;
     width: 100%;
-
   }
 
-  .tasks-container {
-    padding: 16px;
-
-  }
-
-  /* Header */
   .tasks-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 16px;
   }
 
   .tasks-actions {
     width: 100%;
-    gap: 10px;
-
+    overflow-x: auto; /* Scroll buttons if too many */
+    padding-bottom: 4px;
   }
 
-  .tasks-actions .btn {
-    flex: 1;
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
   }
 
-  /* Buttons stretch on mobile */
+  .create-grid {
+    grid-template-columns: 1fr; /* Stack form inputs */
+  }
 
-  /* Filters - Intelligent Grid */
+  /* Filters Stack vertically */
   .filter-row {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 12px;
+    flex-direction: column;
+    align-items: stretch;
   }
 
-  /* Search & Dept take full width */
-  .filter-group.search-bar {
-    flex: 100%;
+  .filter-group, .filter-group.search-bar {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .filter-actions {
+    flex-direction: column;
+  }
+  
+  .filter-actions .btn {
     width: 100%;
   }
 
-  /* Dates sit side-by-side (50% each minus gap) */
-  .filter-group {
-    flex: 1 1 45%;
+  /* Modal Mobile Fixes */
+  .history-modal, .modal {
+    width: 95% !important; /* Override drag width */
+    height: auto;
+    max-height: 85vh;
+    left: 2.5% !important; /* Force center horizontally */
+    right: 2.5% !important;
+    transform: none !important; /* Reset positioning logic */
+    position: fixed !important; /* Reset absolute */
+    top: 50% !important;
+    transform: translateY(-50%) !important;
   }
+}
 
-  /* Filter Buttons */
-  .filter-actions {
-    flex-direction: row;
-    gap: 10px;
-  }
-
-  .filter-actions .btn {
-    flex: 1;
-    width: auto;
-  }
-
-  /* Equal width buttons */
-
-  /* Form Grid */
-  .create-grid {
-    grid-template-columns: 1fr;
-  }
-
-  /* Stats - 2 Columns */
+@media (max-width: 480px) {
   .stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    grid-template-columns: 1fr; /* 1 column stat on very small screens */
   }
-
-  .stat-card {
-    padding: 12px;
-
-  }
-
-  .stat-value {
-    font-size: 20px;
-  }
-
-  /* Task List */
-  .tasks-grid {
-    grid-template-columns: 1fr;
-  }
-
-  /* Pagination */
+  
   .pagination {
     justify-content: center;
-    flex-direction: column;
-    gap: 16px;
+    gap: 12px;
   }
-}
-
-/* ============================================
-   TASK HISTORY - MODERN UPGRADED UI (NO JSX CHANGE)
-============================================ */
-
-/* Make modal stylish */
-.history-modal {
-  background: #ffffff;
-  border-radius: 14px !important;
-  width: 620px !important;
-  max-height: 85vh;
-  overflow-y: auto;
-  position: absolute;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
-  cursor: grab;
-  border: none !important;
-}
-
-/* Header */
-.history-modal-header {
-  background: #f8fafc;
-  padding: 18px 24px !important;
-  font-size: 20px !important;
-  font-weight: 700;
-  border-bottom: 1px solid #e2e8f0 !important;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: grab;
-}
-
-/* Close button */
-.history-modal-header .btn-close {
-  background: #ef4444 !important;
-  color: white !important;
-  border-radius: 6px;
-  font-size: 18px;
-  padding: 4px 10px;
-}
-
-/* Body scroll styling */
-.history-modal-body {
-  padding: 22px 26px !important;
-}
-
-.history-modal-body::-webkit-scrollbar {
-  width: 8px;
-}
-
-.history-modal-body::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 4px;
-}
-
-/* Each history entry */
-.history-item {
-  background: #f9fafb;
-  border-left: 4px solid #4f46e5;
-  padding: 16px 18px;
-  border-radius: 10px;
-  margin-bottom: 16px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-  transition: 0.2s ease;
-}
-
-.history-item:hover {
-  transform: translateX(4px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* Top row (action + timestamp) */
-.history-item .history-top {
-  display: flex;
-  justify-content: space-between;
-  font-size: 15px;
-  font-weight: 700;
-  color: #1e293b;
-  margin-bottom: 6px;
-}
-
-/* Username */
-.history-item>div:nth-child(2) strong {
-  font-size: 14px;
-  color: #334155;
-}
-
-/* Comment bubble */
-.history-comment {
-  font-size: 14px;
-  background: #eef2ff;
-  padding: 10px 12px;
-  border-radius: 8px;
-  margin-top: 8px;
-  color: #4338ca;
-  border-left: 3px solid #6366f1;
-}
-
-/* File link */
-.history-file a {
-  color: #2563eb;
-  font-weight: 600;
-  margin-top: 8px;
-  display: inline-block;
-  text-decoration: none;
-}
-
-.history-file a:hover {
-  text-decoration: underline;
-}
-
-/* Drag cursor active */
-.history-modal:active,
-.history-modal-header:active {
-  cursor: grabbing;
-}
-
-/* ============================================
-   MOBILE RESPONSIVE FIXES FOR HISTORY MODAL
-============================================ */
-@media (max-width: 480px) {
-
-  /* Reduce modal size */
-  .history-modal {
-    width: 92% !important;
-    left: 4% !important;
-    right: 4% !important;
-    max-height: 75vh !important;
-    padding: 0 !important;
-    transform: none !important;
-    /* prevent centering issues */
-    border-radius: 10px !important;
-  }
-
-  /* Header adjusts for small screens */
-  .history-modal-header {
-    padding: 14px 16px !important;
-    font-size: 18px !important;
-  }
-
-  .history-modal-header .btn-close {
-    padding: 3px 8px !important;
-    font-size: 16px !important;
-    width: 60px;
-  }
-
-  /* Reduce body padding for small screen */
-  .history-modal-body {
-    padding: 14px !important;
-  }
-
-  .quick-filters {
-    /* width: 100%; */
-    padding-bottom: 12px;
-    margin-bottom: 12px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    gap: 8px;
-
-    flex-direction: row;
-    width: 290px;
-    /* flex-wrap: wrap; */
-  }
-
-  /* Resize history item cards */
-  .history-item {
-    padding: 12px !important;
-    margin-bottom: 12px !important;
-  }
-
-  .history-item .history-top {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-  }
-
-  /* Comment bubble smaller */
-  .history-comment {
-    font-size: 13px !important;
-    padding: 8px 10px !important;
-  }
-
-  /* File link spacing */
-  .history-file a {
-    font-size: 14px !important;
-  }
-
-  .history-modal:active,
-  .history-modal-header:active {
-    cursor: grabbing;
-  }
-}
-
-/* Tablet responsive */
-@media (max-width: 768px) {
-  .history-modal {
-    width: 80% !important;
-    left: 10% !important;
-    right: 10% !important;
-    max-height: 80vh !important;
-  }
-}
-.image-preview-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.92);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 3000;
-}
-
-.image-preview-overlay img {
-  max-width: 90%;
-  max-height: 90%;
-  border-radius: 10px;
-  box-shadow: 0 0 30px rgba(0,0,0,0.8);
-  cursor: grab;
-}
-/* =========================================
-   FIXES FOR TasksPage.jsx (SAFE ADDITIONS)
-   ========================================= */
-
-/* ✅ 1. History modal overlay (missing but required by JSX) */
-.history-modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.55);
-  backdrop-filter: blur(2px);
-  z-index: 2500;
-}
-
-/* ✅ 2. Ensure history modal always floats above page */
-.history-modal {
-  z-index: 2600 !important;
-}
-
-/* ✅ 3. Drag cursor only on header visually (no JSX change) */
-.history-modal {
-  cursor: default;
-}
-.history-modal-header {
-  cursor: grab;
-}
-.history-modal-header:active {
-  cursor: grabbing;
-}
-
-/* ✅ 4. Attachment preview button alignment */
-.preview-btn {
-  margin-left: 6px;
-  font-size: 12px;
-  height: 26px;
-}
-
-/* Small variant explicitly supported */
-.preview-btn.small {
-  padding: 4px 10px;
-  font-size: 11px;
-  height: 24px;
-}
-
-/* ✅ 5. Attachment container spacing fix */
-.attachment-preview-container {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-/* ✅ 6. INLINE preview box fix (keeps your old behavior) */
-.image-preview-box {
-  margin-top: 6px;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid var(--border);
-}
-
-.image-preview-box img {
-  width: 100%;
-  max-height: 220px;
-  object-fit: contain;
-  background: #020617;
-}
-
-/* ✅ 7. FULLSCREEN IMAGE PREVIEW – ensure always above everything */
-.image-preview-overlay {
-  z-index: 4000 !important;
-}
-
-/* ✅ 8. Mobile fix: history modal never off-screen */
-@media (max-width: 480px) {
-  .history-modal {
-    left: 4% !important;
-    right: 4% !important;
-    max-width: 92% !important;
+  
+  .pagination-left {
+    width: 100%;
+    justify-content: center;
   }
 }

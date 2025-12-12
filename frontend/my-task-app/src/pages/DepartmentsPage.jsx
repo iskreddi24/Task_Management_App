@@ -441,7 +441,7 @@ import {
 } from "../api/departments";
 
 import { listUsers } from "../api/users";
-import { AuthContext } from "../context/AuthProvider";
+import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
 
 import "../styles/departments.css";
@@ -450,7 +450,16 @@ import "../styles/tables.css";
 /* -----------------------------------------------------------
    ⭐ REUSABLE CONFIRM POPUP COMPONENT
 ----------------------------------------------------------- */
-function ConfirmPopup({ open, title, message, onConfirm, onCancel }) {
+function ConfirmPopup({
+  open,
+  title,
+  message,
+  confirmText = "Confirm",
+  cancelText = "Cancel",
+  confirmVariant = "danger",
+  onConfirm,
+  onCancel,
+}) {
   if (!open) return null;
 
   return (
@@ -461,16 +470,22 @@ function ConfirmPopup({ open, title, message, onConfirm, onCancel }) {
 
         <div className="popup-actions">
           <button className="btn btn-cancel" onClick={onCancel}>
-            Cancel
+            {cancelText}
           </button>
-          <button className="btn btn-danger" onClick={onConfirm}>
-            Yes, Delete
+
+          <button
+            className={`btn ${confirmVariant === "primary" ? "btn-primary" : "btn-danger"
+              }`}
+            onClick={onConfirm}
+          >
+            {confirmText}
           </button>
         </div>
       </div>
     </div>
   );
 }
+
 
 /* -----------------------------------------------------------
    ⭐ DEPARTMENTS PAGE
@@ -511,6 +526,11 @@ export default function DepartmentsPage() {
   const [updating, setUpdating] = useState(false);
   const [assigningId, setAssigningId] = useState(null);
   const [deletingId, setDeletingId] = useState(null);
+  const [confirmHeadChange, setConfirmHeadChange] = useState({
+    open: false,
+    deptId: null,
+    newUserId: null,
+  });
 
   useEffect(() => {
     async function load() {
@@ -773,9 +793,17 @@ export default function DepartmentsPage() {
                               <select
                                 defaultValue=""
                                 onClick={() => loadDeptUsers(d.id)}
-                                onChange={(e) =>
-                                  handleAssign(d.id, e.target.value)
-                                }
+                                onChange={(e) => {
+                                  if (!e.target.value) return;
+                                  setConfirmHeadChange({
+                                    open: true,
+                                    deptId: d.id,
+                                    newUserId: e.target.value,
+                                  });
+                                }}
+
+
+
                                 disabled={assigningId === d.id}
                               >
                                 <option value="">
@@ -966,6 +994,24 @@ export default function DepartmentsPage() {
         onConfirm={confirmDelete}
         onCancel={closeDeletePopup}
       />
+      <ConfirmPopup
+        open={confirmHeadChange.open}
+        title="Change Department Head?"
+        message="Are you sure you want to change the department head? This action takes effect immediately."
+        confirmText="Yes, Change Head"
+        confirmVariant="primary"
+        onCancel={() =>
+          setConfirmHeadChange({ open: false, deptId: null, newUserId: null })
+        }
+        onConfirm={() => {
+          handleAssign(
+            confirmHeadChange.deptId,
+            confirmHeadChange.newUserId
+          );
+          setConfirmHeadChange({ open: false, deptId: null, newUserId: null });
+        }}
+      />
+
 
       {/* ⭐ EDIT POPUP */}
       {showEditPopup && (

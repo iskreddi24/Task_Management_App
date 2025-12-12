@@ -1150,13 +1150,14 @@
 //   );
 // }
 // src/pages/ReportsPage.jsx
+
+
 import React, { useEffect, useState, useContext } from "react";
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
-import { AuthContext } from "../context/AuthProvider";
-
+import { AuthContext } from "../context/AuthContext";
 // --- CHANGED: Import your configured API instance ---
-import api from "../api/api"; 
+import api from "../api/api";
 
 import {
   getMyStats,
@@ -1208,6 +1209,7 @@ const STATUS_OPTIONS = [
   { value: "COMPLETED", label: "Completed" },
   { value: "REJECTED", label: "Rejected" },
 ];
+import SearchableDropdown from "../components/SearchableDropdown";
 
 /* -------------------------------------------------------
    DATE PRESETS
@@ -1279,6 +1281,7 @@ export default function ReportsPage() {
 
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [employeeSearch, setEmployeeSearch] = useState("");
 
   const chartId = "chart-report";
 
@@ -1394,7 +1397,8 @@ export default function ReportsPage() {
     }
 
     if (user.role !== "EMPLOYEE") {
-      if (scope === "DEPARTMENT" && !selectedDept) {
+      // Allow ALL departments when selectedDept === ""
+      if (scope === "DEPARTMENT" && selectedDept === null) {
         openModal(
           "Department Required",
           "Please select a department.",
@@ -1405,6 +1409,7 @@ export default function ReportsPage() {
         );
         return;
       }
+
 
       if (scope === "EMPLOYEE" && !selectedEmployee) {
         openModal(
@@ -1430,8 +1435,46 @@ export default function ReportsPage() {
       } else if (scope === "EMPLOYEE") {
         data = await getEmployeeStats(selectedEmployee, startDate, endDate);
       } else {
-        data = await getDepartmentStats(selectedDept, startDate, endDate);
+        // ALL DEPARTMENTS CASE
+        if (selectedDept === "") {
+          const allData = [];
+
+          for (const dept of departments) {
+            const deptStats = await getDepartmentStats(dept.id, startDate, endDate);
+            allData.push({
+              departmentId: dept.id,
+              departmentName: dept.name,
+              stats: deptStats,
+            });
+          }
+
+          // combine totals into one unified stats object
+          const combined = {
+            total: 0,
+            pending: 0,
+            inProgress: 0,
+            submitted: 0,
+            completed: 0,
+            rejected: 0,
+            byDepartment: allData,
+          };
+
+          allData.forEach(d => {
+            combined.total += d.stats.total;
+            combined.pending += d.stats.pending;
+            combined.inProgress += d.stats.inProgress;
+            combined.submitted += d.stats.submitted;
+            combined.completed += d.stats.completed;
+            combined.rejected += d.stats.rejected;
+          });
+
+          data = combined;
+        } else {
+          // SINGLE DEPARTMENT
+          data = await getDepartmentStats(selectedDept, startDate, endDate);
+        }
       }
+
 
       setStats(filterStatus(data, selectedStatus));
     } catch (err) {
@@ -1523,32 +1566,67 @@ export default function ReportsPage() {
   /* ------------------------------------ Chart Data ------------------------------------ */
   const barData = stats
     ? {
-        labels: ["Pending", "In Progress", "Submitted", "Completed", "Rejected"],
-        datasets: [
-          {
-            label: "Tasks",
-            data: [
-              stats.pending,
-              stats.inProgress,
-              stats.submitted,
-              stats.completed,
-              stats.rejected,
-            ],
-            backgroundColor: [
-              COLORS.warn,
-              COLORS.primary,
-              COLORS.accent,
-              COLORS.success,
-              COLORS.danger,
-            ],
-          },
-        ],
-      }
+      labels: ["Pending", "In Progress", "Submitted", "Completed", "Rejected"],
+      datasets: [
+        {
+          label: "Tasks",
+          data: [
+            stats.pending,
+            stats.inProgress,
+            stats.submitted,
+            stats.completed,
+            stats.rejected,
+          ],
+          backgroundColor: [
+            COLORS.warn,
+            COLORS.primary,
+            COLORS.accent,
+            COLORS.success,
+            COLORS.danger,
+          ],
+        },
+      ],
+    }
     : {};
 
   const pieData = barData;
 
   /* ------------------------------------ UI ------------------------------------ */
+
+  const getEmployeeCompletionStatus = () => {
+    if (!stats || !stats.byDepartment) return null;
+
+    const completedList = [];
+    const notCompletedList = [];
+
+    stats.byDepartment.forEach(deptBlock => {
+      const deptName = deptBlock.departmentName;
+      const stat = deptBlock.stats;
+
+      // ANY completed tasks?
+      if (stat.completed > 0) {
+        completedList.push({
+          department: deptName,
+          completed: stat.completed,
+          total: stat.total
+        });
+      }
+
+      // Anyone has tasks but none completed
+      if (stat.total > 0 && stat.completed === 0) {
+        notCompletedList.push({
+          department: deptName,
+          total: stat.total
+        });
+      }
+    });
+
+    return { completedList, notCompletedList };
+  };
+  const filteredEmployees = users.filter(u =>
+    u.username.toLowerCase().includes(employeeSearch.toLowerCase())
+  );
+
 
   return (
     <div className="tasks-page">
@@ -1598,25 +1676,47 @@ export default function ReportsPage() {
                     setSelectedEmployee("");
                   }}
                 >
-                  <option value="">Select Department</option>
+                  <option value="">All Departments</option>
                   {departments.map((d) => (
-                    <option key={d.id} value={d.id}>{d.name}</option>
+                    <option key={d.id} value={d.id}>
+                      {d.name}
+                    </option>
                   ))}
                 </select>
+
+              </div>
+            )}
+            {scope === "EMPLOYEE" && user.role !== "EMPLOYEE" && (
+
+              <div className="form-field small">
+                {/* <label>Employee</label> */}
+
+                {/* Search box */}
+                {/* <input
+                  type="text"
+                  placeholder="Search employee..."
+                  className="employee-search"
+                  value={employeeSearch}
+                  onChange={(e) => setEmployeeSearch(e.target.value)}
+                /> */}
+
+                {/* Filtered dropdown */}
+                {scope === "EMPLOYEE" && user.role !== "EMPLOYEE" && (
+                  <SearchableDropdown
+                    label="Employee"
+                    value={selectedEmployee}
+                    onChange={(val) => setSelectedEmployee(val)}
+                    options={users.map((u) => ({
+                      value: u.id,
+                      label: `${u.username} (${u.role})`,
+                    }))}
+                    placeholder="Select Employee"
+                  />
+                )}
+
               </div>
             )}
 
-            {scope === "EMPLOYEE" && user.role !== "EMPLOYEE" && (
-              <div className="form-field small">
-                <label>Employee</label>
-                <select value={selectedEmployee} onChange={(e) => setSelectedEmployee(e.target.value)}>
-                  <option value="">Select Employee</option>
-                  {users.map((u) => (
-                    <option key={u.id} value={u.id}>{u.username} ({u.role})</option>
-                  ))}
-                </select>
-              </div>
-            )}
 
             {/* Status Filter */}
             <div className="form-field small">
@@ -1661,6 +1761,10 @@ export default function ReportsPage() {
           {/* RESULTS */}
           {stats ? (
             <>
+              {scope === "DEPARTMENT" && selectedDept === "" && (
+                <div className="info-banner">Showing report for ALL departments</div>
+              )}
+
               <div className="stats-grid advanced">
                 <div className="card stat-card"><div className="big">{stats.total}</div><div>Total</div></div>
                 <div className="card stat-card"><div className="big">{stats.pending}</div><div>Pending</div></div>
@@ -1678,6 +1782,53 @@ export default function ReportsPage() {
                   <Pie data={pieData} />
                 </div>
               </div>
+              {/* EMPLOYEE COMPLETION SECTION */}
+              {scope === "DEPARTMENT" && stats?.byDepartment && (
+                <div className="completion-section">
+                  <h2 className="section-title">Task Completion Summary</h2>
+
+                  {(() => {
+                    const result = getEmployeeCompletionStatus();
+                    if (!result) return null;
+
+                    const { completedList, notCompletedList } = result;
+
+                    return (
+                      <>
+                        <div className="completion-block">
+                          <h3 className="sub-title completed-title">Departments With Completed Tasks</h3>
+                          {completedList.length > 0 ? (
+                            <ul className="completion-list">
+                              {completedList.map((item, index) => (
+                                <li key={index}>
+                                  <strong>{item.department}</strong> — {item.completed} completed out of {item.total}
+                                </li>
+                              ))}
+                            </ul>
+                          ) : (
+                            <p className="empty-text">No departments completed tasks.</p>
+                          )}
+                        </div>
+
+                        <div className="completion-block">
+                          <h3 className="sub-title pending-title">Departments With No Completed Tasks</h3>
+                          {notCompletedList.length > 0 ? (
+                            <ul className="completion-list">
+                              {notCompletedList.map((item, index) => (
+                                <li key={index}>
+                                  <strong>{item.department}</strong> — {item.total} tasks (0 completed)
+                                </li>
+                              ))}
+                            </ul>
+                          ) : (
+                            <p className="empty-text">All departments have at least one completed task.</p>
+                          )}
+                        </div>
+                      </>
+                    );
+                  })()}
+                </div>
+              )}
 
               <div className="export-buttons">
                 <button className="btn btn-primary" onClick={exportPDF}>📄 Export PDF</button>

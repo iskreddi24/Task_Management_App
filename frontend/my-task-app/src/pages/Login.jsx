@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { loginUser, getMe } from "../api/auth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { AuthContext } from "../context/AuthProvider";
+import { AuthContext } from "../context/AuthContext";
 import "../styles/Login.css";
 import "../styles/auth.css";
 
@@ -90,7 +90,7 @@ export default function Login() {
                         onChange={(e) => setPassword(e.target.value)}
                     />
 
-                    <button type="submit">Login</button>
+                    <button type="submit" className="buttonlog">Login</button>
                 </form>
 
                 <p>
